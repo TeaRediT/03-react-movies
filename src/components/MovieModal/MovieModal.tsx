@@ -4,7 +4,7 @@ import css from "./MovieModal.module.css";
 import { useEffect } from "react";
 
 interface MovieModalProps {
-  movie: Movie | undefined;
+  movie: Movie | null;
   onClose: () => void;
 }
 
@@ -23,7 +23,7 @@ const MovieModal = ({ movie, onClose }: MovieModalProps) => {
     };
   }, [onClose]);
 
-  if (movie === undefined) return;
+  if (movie === null) return;
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>): void => {
     if (e.target === e.currentTarget) onClose();

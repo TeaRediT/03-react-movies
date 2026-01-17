@@ -13,9 +13,7 @@ export default function App() {
   const [isLoader, setIsLoader] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [isModal, setIsModal] = useState<boolean>(false);
-  const [selectedMovie, setSelectedMovie] = useState<Movie | undefined>(
-    undefined,
-  );
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
   const onSearchBarSubmit = async (query: string): Promise<void> => {
     try {
@@ -41,7 +39,7 @@ export default function App() {
 
   const onCloseMovieModal = () => {
     setIsModal(false);
-    setSelectedMovie(undefined);
+    setSelectedMovie(null);
   };
 
   return (
