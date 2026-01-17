@@ -3,12 +3,12 @@ import type { Movie } from "../../types/movie";
 import css from "./MovieModal.module.css";
 import { useEffect } from "react";
 
-interface MovieModal {
-  movie: Movie | null;
+interface MovieModalProps {
+  movie: Movie | undefined;
   onClose: () => void;
 }
 
-const MovieModal = ({ movie, onClose }: MovieModal) => {
+const MovieModal = ({ movie, onClose }: MovieModalProps) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -23,7 +23,7 @@ const MovieModal = ({ movie, onClose }: MovieModal) => {
     };
   }, [onClose]);
 
-  if (!movie) return;
+  if (movie === undefined) return;
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>): void => {
     if (e.target === e.currentTarget) onClose();

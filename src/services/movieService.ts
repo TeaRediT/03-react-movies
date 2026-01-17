@@ -1,7 +1,12 @@
 import axios from "axios";
-import type { MovieList } from "../types/movie";
+import type { Movie } from "../types/movie";
 
-export const fetchData = async (query: string): Promise<MovieList> => {
+export interface MovieList {
+  results: Movie[];
+  total_results: number;
+}
+
+export const fetchData = async (query: string): Promise<Movie[]> => {
   const { data } = await axios<MovieList>(
     `https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1&query=${query}`,
     {
@@ -10,5 +15,5 @@ export const fetchData = async (query: string): Promise<MovieList> => {
       },
     },
   );
-  return data;
+  return data.results;
 };

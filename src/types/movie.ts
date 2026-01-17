@@ -1,8 +1,3 @@
-export interface MovieList {
-  results: Movie[];
-  total_results: number;
-}
-
 export interface Movie {
   id: number;
   poster_path: string;

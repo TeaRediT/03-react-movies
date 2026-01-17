@@ -5,7 +5,7 @@ import MovieGrid from "../MovieGrid/MovieGrid";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import Loader from "../Loader/Loader";
 import MovieModal from "../MovieModal/MovieModal";
-import type { MovieList, Movie } from "../../types/movie";
+import type { Movie } from "../../types/movie";
 import { useState } from "react";
 
 export default function App() {
@@ -13,22 +13,20 @@ export default function App() {
   const [isLoader, setIsLoader] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
   const [isModal, setIsModal] = useState<boolean>(false);
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | undefined>(
+    undefined,
+  );
 
   const onSearchBarSubmit = async (query: string): Promise<void> => {
-    if (query === "") {
-      toast("Please enter your search query.");
-      return;
-    }
     try {
       setMovies([]);
       setIsError(false);
       setIsLoader(true);
-      const res: MovieList = await fetchData(query);
-      if (res.total_results < 1) {
+      const res: Movie[] = await fetchData(query);
+      if (res.length < 1) {
         toast("No movies found for your request.");
       }
-      setMovies(res.results);
+      setMovies(res);
     } catch {
       setIsError(true);
     } finally {
@@ -43,7 +41,7 @@ export default function App() {
 
   const onCloseMovieModal = () => {
     setIsModal(false);
-    setSelectedMovie(null);
+    setSelectedMovie(undefined);
   };
 
   return (
